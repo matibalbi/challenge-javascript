@@ -154,21 +154,17 @@ OrderedLinkedList.prototype.print = function(){
 OrderedLinkedList.prototype.add = function(value){
     var newNodo = new Node(value);
     if (!this.head) {
-        this.head = newNodo;
-        return
+        return this.head = newNodo;
     }
 
     let cursor = this.head;
 
     if (!cursor.next && value > cursor.value) {
         newNodo.next = cursor;
-	    this.head = newNodo;
-        return
+	    return this.head = newNodo;
     }
 
-	while (cursor.next) {
-        if (value > cursor.next.value) break
-		if (!cursor.next) break
+	while (cursor.next && value < cursor.next.value) {
         cursor = cursor.next;
 	}
 	newNodo.next = cursor.next;
@@ -265,37 +261,13 @@ OrderedLinkedList.prototype.removeLower = function(){
 
 function multiCallbacks(cbs1, cbs2){
     let arr = cbs1.concat(cbs2)
-    arr = quickSortBis(arr)
+    arr.sort((a, b) => a.time - b.time)
     let arr2 = []
     for (i = 0; i < arr.length; i++) {
         arr2.push(arr[i].cb())
     }
     return arr2
 }
-
-function quickSortBis(array, arr1 = [], arr2 = []) {
-    if (array.length < 2) return array
-    var pivot = array[0]
-    for (var i = 1; i < array.length; i++) {
-      if (array[i].time <= pivot.time) arr1.push(array[i])
-      if (array[i].time > pivot.time) arr2.push(array[i])
-    }
-    return quickSortBis(arr1).concat(pivot, quickSortBis(arr2))
-}
-
-let arr = []
-const cbs1 = [
-    {cb:()=>(arr.push('1-1'),'1-1'), time: 2},
-    {cb:()=>(arr.push('1-2'),'1-2'), time: 3}
-];
-const cbs2 = [
-    {cb:()=>(arr.push('2-1'),'2-1'), time: 1},
-    {cb:()=>(arr.push('2-2'),'2-2'), time: 4}
-];
-// it("todas las funciones(callbacks) deben haber sido llamadas", function(){
-    arr = []
-    multiCallbacks([...cbs1], [...cbs2])
-    // expect(arr.length).to.be.equal(4)
 
 // ----- BST -----
 
@@ -310,13 +282,14 @@ const cbs2 = [
 // 5   9
 // resultado:[5,8,9,32,64]
 
+
 BinarySearchTree.prototype.toArray = function(arr = []) {
+    
     if (this.left) this.left.toArray(arr)
     arr.push(this.value)
     if (this.right) this.right.toArray(arr)
     return arr
 }
-
 
 
 // ----- Algoritmos -----
