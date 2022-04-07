@@ -383,6 +383,10 @@ function reverse(num){
         var digits = i + 1
         i++
     }
+
+    // otra forma en vez del while si se pudiera pasar el numero a string:
+    // var digits = ("" + num).length
+
     for (i = 1; i <= digits; i++) {
         num_invertido += num % 10 * 10 ** (digits - i)
         num = (num - num % 10)/10
