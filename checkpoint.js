@@ -102,10 +102,6 @@ function deepEqualArrays(arr1, arr2) {
     return true
 }
 
-var arr1 = [0,1,[[0,1,2],1,2]]
-var arr2 = [0,1,[[0,1,2],1,2]]
-deepEqualArrays(arr1, arr2)
-
 // ----- LinkedList -----
 
 // Deben completar la siguiente implementacion 'OrderedLinkedList'(OLL)
@@ -319,7 +315,7 @@ function primalityTest(n) {
 // retorn el mismo ordenado de 'mayor a menor!'
 // https://en.wikipedia.org/wiki/Quicksort
 
-function quickSort(array) {
+function quickSort(array, arr1 = [], arr2 = []) {
     if (array.length < 2) return array
     var pivot = array[0]        // defino el pivot como el primer elemento del array/subarray
     for (var i = 1; i < array.length; i++) {
@@ -349,22 +345,18 @@ function quickSort(array) {
 // > reverse(95823);
 // < 32859
 
-function reverse(num){
-    var num_invertido = 0
+function reverse(num) {
+    var num_revertido = 0
     var i = 0
     while (num >= (10 ** i)) {
         var digits = i + 1
         i++
     }
-
-    // otra forma en vez del while si se pudiera pasar el numero a string:
-    // var digits = ("" + num).length
-
     for (i = 1; i <= digits; i++) {
-        num_invertido += num % 10 * 10 ** (digits - i)
+        num_revertido += num % 10 * 10 ** (digits - i)
         num = (num - num % 10)/10
     }
-    return num_invertido
+    return num_revertido
 }
 
 // la grandiosa resolucion de Wilson!!!
